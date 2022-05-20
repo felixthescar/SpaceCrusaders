@@ -4,44 +4,29 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class Projectile extends GameObject{
+public class Projectile extends EntityGameObject{
 	
-	private Handler handler;
-	private int dir;
-	private int speed = 4;
+	private float speed = 4;
 	
-	public Projectile(float x, float y, ID id, int dir, Handler handler) {
+	public Projectile(float x, float y, ID id, int dir) {
 		super(x, y, id);
-		this.dir = dir;
-		this.handler = handler;
-		
-		
+		Vector2<Float> vel = new Vector2<Float>(0f, 0f);
 		switch(dir) {
-			case 1: velX = 0; velY = -speed; break;	//sus
-			case 2: velX = 0; velY = speed; break;	//jos
-			case 3: velX = -speed; velY = 0; break;	//stanga
-			case 4: velX = speed; velY = 0; break;	//dreapta
-			case 5: velX = -speed; velY = -speed; break;//stanga sus
-			case 6: velX = speed; velY = -speed; break;	//dreapta sus
-			case 7: velX = -speed; velY = speed; break;	//stanga jos
-			case 8: velX = speed; velY = speed; break;	//dreapta jos
+			case 1: {vel.setX(-speed); vel.setY(-speed);break;} //stanga sus  +
+			case 2: {vel.setX(0f); vel.setY(-speed);break;} //sus			
+			case 3: {vel.setX(speed);vel.setY(-speed);break;} //dreapta sus
+			case 4: {vel.setX(speed); vel.setY(0f);break;} //dreapta
+			case 5: {vel.setX(speed); vel.setY(speed); break;} //dreapta jos
+			case 6: {vel.setX(0f); vel.setY(speed);break;} //jos
+			case 7: {vel.setX(-speed); vel.setY(speed);break;} //stanga jos
+			case 8: {vel.setX(-speed); vel.setY(0f);break;} //stanga 
 		}
-	}
-	
-	public void setVelX(float velX) {
-		this.velX = velX;
-	}
-	
-	public void setVelY(float velY) {
-		this.velY = velY;
+		super.setVelocity(vel);
 	}
 
 	@Override
 	public void tick() {
-		x += velX;
-		y += velY;
-
-		if((x < 0 || x > Game.WIDTH) || (y < 0 || y > Game.HEIGHT)) handler.removeObject(this);
+		super.tick();
 	}
 
 	@Override
@@ -55,9 +40,4 @@ public class Projectile extends GameObject{
 	public Rectangle getBounds() {
 		return new Rectangle((int)x, (int)y, 8, 8);
 	}
-	
-	public void removeProjectile() {
-		handler.removeObject(this);
-	}
-	
 }

@@ -4,22 +4,22 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.util.Random;
 
 public class Game extends Canvas implements Runnable{
 	
 	private static final long serialVersionUID = 1L;
-
+	public static int frames;
 	public static final int WIDTH = 1366, HEIGHT = WIDTH / 16 * 9;
 	
+	Window window;
 	private Thread thread;
 	private boolean running = false;
 	
-	private Random r;
-	private Handler handler;
 	private HUD hud;
 	private Spawn spawner;
 	private Menu menu;
+
+	public static double fps = 0;
 	
 	public enum STATE {
 		Menu,
@@ -31,22 +31,22 @@ public class Game extends Canvas implements Runnable{
 	public STATE gameState = STATE.Menu;
 	
 	public Game() {
-		handler = new Handler();
 		hud = new HUD();
-		menu = new Menu(this, handler, hud);
-		this.addKeyListener(new KeyInput(handler));
+		menu = new Menu(this, hud);
+
 		this.addMouseListener(menu);
+		this.addKeyListener(KeyInput.getKeyInput());
 		
-		new Window(WIDTH, HEIGHT, "Multi-ThreadedGame", this);
+		window = new Window(WIDTH, HEIGHT, "Multi-ThreadedGame", this);
 		
-		r = new Random();
-		spawner = new Spawn(handler, hud);
+		spawner = new Spawn(hud);
 	}
 	
 	public synchronized void start() {
 		running = true;
 		thread = new Thread(this);
 		thread.start();
+		System.out.println(thread.getName());
 	}
 	
 	public synchronized void stop() {
@@ -63,9 +63,45 @@ public class Game extends Canvas implements Runnable{
 		long lastTime = System.nanoTime();
 		double ammountOfTicks = 60.0;
 		double ns = 1000000000 / ammountOfTicks;
+		double ups = 0;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
-		int frames = 0;
+		this.createBufferStrategy(3);
+		BufferStrategy bs = this.getBufferStrategy();
+		if(bs == null) {
+			
+			return;
+		}
+		//int frames = 0;
+		Thread t = new Thread(() -> {
+			while(running){
+				
+				
+				
+				Graphics g = bs.getDrawGraphics();
+				
+				g.setColor(Color.DARK_GRAY);
+				g.fillRect(0,  0,  WIDTH, HEIGHT);
+				
+				
+				Handler.getHandler().render(g);
+				
+				if(gameState == STATE.Game) {
+					hud.render(g);
+				} else if(gameState == STATE.Menu) {
+					menu.render(g);
+				}
+				
+				g.dispose();
+				bs.show();
+				Game.fps++;
+				
+			}
+		});
+		
+		System.out.println(t.getName());
+		//
+		boolean renderStarted = false;
 		while(running) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
@@ -73,23 +109,28 @@ public class Game extends Canvas implements Runnable{
 			while(delta >= 1) {
 				tick();
 				delta--;
+				ups ++;
 			}
-			if(running) {
-				render();
+			if(!renderStarted)
+			{
+				renderStarted = true;
+				t.start();
 			}
-			frames ++;
 			
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println("FPS: " + frames);
-				frames = 0;
+				window.changeTitle("FPS: " + Game.fps + "; UPS: " + ups);
+				ups = 0;
+				Game.fps = 0;
 			}
 		}
+		t.interrupt();
 		stop();
 	}
 	
 	private void tick() {
-		handler.tick();
+		frames++;
+		Handler.getHandler().tick();
 		if(gameState == STATE.Game) {
 			hud.tick();
 			spawner.tick();if(HUD.HEALTH <= 0) {
@@ -100,30 +141,6 @@ public class Game extends Canvas implements Runnable{
 			menu.tick();
 		}
 		
-	}
-	
-	private void render() {
-		BufferStrategy bs = this.getBufferStrategy();
-		if(bs == null) {
-			this.createBufferStrategy(3);
-			return;
-		}
-		
-		Graphics g = bs.getDrawGraphics();
-		
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(0,  0,  WIDTH, HEIGHT);
-		
-		handler.render(g);
-		
-		if(gameState == STATE.Game) {
-			hud.render(g);
-		} else if(gameState == STATE.Menu) {
-			menu.render(g);
-		}
-		
-		g.dispose();
-		bs.show();
 	}
 	
 	public static float clamp(float var, float min, float max) {

@@ -4,34 +4,42 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class BasicEnemy extends GameObject{
-	private Handler handler;
+public class BasicEnemy extends EntityGameObject{
 	private GameObject player;
 	boolean alive = true;
-	int i;
-	float diffX, diffY, distance;
+	private float speed;
+	Vector2<Float> dir;
 
-	public BasicEnemy(float x, float y, ID id, Handler handler) {
+	public BasicEnemy(float x, float y, ID id) {
 		super(x, y, id);
-		this.handler = handler;
-		
-		for(i = 0; i < handler.object.size(); i ++) {
-			if(handler.object.get(i).getId() == ID.Player) player = handler.object.get(i);
+		speed = 10;
+		for(int i = 0; i < Handler.getHandler().object.size(); i ++) {
+			if(Handler.getHandler().object.get(i).getId() == ID.Player) player = Handler.getHandler().object.get(i);
 		}
 	}
 
+	@Override
 	public void tick() {
+		super.tick();
 		if(alive) {
-			x += velX;
-			y += velY;	
+			/*x += velX;
+			y += velY;
 			diffX = x - player.getX() -8;
 			diffY = y - player.getY() -8;
 			distance = (float) Math.sqrt((x - player.getX())*(x - player.getX()) + (y - player.getY()) * (y - player.getY()));
 			
 			velX = (float) (-1.0/distance * diffX);
-			velY = (float) (-1.0/distance * diffY);
+			velY = (float) (-1.0/distance * diffY);*/
+			dir = new Vector2<Float>(0f, 0f);
+			float distance = (float) Math.sqrt((x + player.getX())*(x + player.getX()) + (y + player.getY()) * (y + player.getY()));
+			float x = player.getX() - this.x;
+			float y = player.getY() - this.y;
+			//float u = (float) Math.pow(x/(x*x + y*y), (1/2));
+			//float v = (float) Math.pow(y/(x*x + y*y), (1/2));
+			Vector2<Float> vel = new Vector2<Float>(x / 1000 * speed, y / 1000 * speed);
+			super.setVelocity(vel);
 		} else {
-			handler.removeObject(this);
+			Handler.getHandler().removeObject(this);
 		}
 		
 		collision();
@@ -39,12 +47,12 @@ public class BasicEnemy extends GameObject{
 	}
 	
 	private void collision() {
-		for(int i = 0; i < handler.object.size(); i ++) {
-			GameObject tempObject = handler.object.get(i);
+		for(int i = 0; i < Handler.getHandler().object.size(); i ++) {
+			GameObject tempObject = Handler.getHandler().object.get(i);
 			if(tempObject.getId() == ID.Projectile) {
 				//collision
 				if(getBounds().intersects(tempObject.getBounds())) {
-					handler.removeObject(tempObject);
+					Handler.getHandler().removeObject(tempObject);
 					alive = false;
 				}
 			}

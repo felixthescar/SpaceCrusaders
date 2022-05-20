@@ -14,12 +14,10 @@ public class Menu extends MouseAdapter{
 	private Random r = new Random();
 	
 	private Game game;
-	private Handler handler;
 	private HUD hud;
 	
-	public Menu(Game game, Handler handler, HUD hud) {
+	public Menu(Game game, HUD hud) {
 		this.game = game;
-		this.handler = handler;
 		this.hud = hud;
 	}
 	public void mousePressed(MouseEvent e) {
@@ -29,8 +27,8 @@ public class Menu extends MouseAdapter{
 		//play
 		if(mouseOver(mx, my, Game.WIDTH/2 - 120, Game.HEIGHT/4, 200, 64) && game.gameState == STATE.Menu) {
 			game.gameState = STATE.Game;
-			handler.addObject(new Player((float)(Game.WIDTH/2-16), (float)(Game.HEIGHT/2-16), ID.Player, handler));
-			handler.addObject(new BasicEnemy(r.nextFloat((float)(Game.WIDTH-50)), r.nextFloat((float)(Game.HEIGHT-50)), ID.BasicEnemy, handler));
+			Handler.getHandler().addObject(new Player((float)(Game.WIDTH/2-16), (float)(Game.HEIGHT/2-16), ID.Player));
+			Handler.getHandler().addObject(new BasicEnemy(r.nextFloat((float)(Game.WIDTH-50)), r.nextFloat((float)(Game.HEIGHT-50)), ID.BasicEnemy));
 		
 		}
 		//quit
