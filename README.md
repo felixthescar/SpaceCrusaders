@@ -1,6 +1,6 @@
 # APD-Project
 
-
+<div style="text-align: justify">
 ### Introducere
 Acest proiect a fost facut in cadrul cursului Algoritmi Paraleli si Distribuiti.
 Programul este un simplu joc inspirat din titlul destul de cunoscut "Vampire Survivors", un joc relativ mic dar distractiv.
@@ -27,3 +27,5 @@ Scorul creste pe un ciclu de o secunda insemnand ca pentru fiecare secunda in ca
 Nivelul (sau Level) creste pe un ciclu de 5 secunde iar la fiecare trecere de nivel vor aparea in functie de nivelul curent.
 EXPLICATIE: pentru nivelul 1 va aparea un singur inamic, pentru nivelul 2 vor aparea inca 2 inamici s.a.m.d.
 Nivelul creste chiar daca nu au fost omorati toti inamicii prezenti in nivel ceea ce ofera un nivel de dificultate deoarece exista posibilitatea sa fie atat de multi inamici incat player-ul nu mai are mutari in care sa nu isi scada viata.
+
+</div>
