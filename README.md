@@ -32,8 +32,8 @@ Inputurile sunt in felul urmator:
 
 ### Instalare si Executare <a id="5"></a>
 <br>Pentru a putea juca acest joc aveti nevoie de urmatoarele:
-    <br>- Eclipse IDE;
-    <br>- OpenJDK sau orice alt JDK peste 15.
+    <br>- Eclipse IDE; (https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2022-03/R/eclipse-inst-jre-win64.exe)
+    <br>- OpenJDK. (https://jdk.java.net/18/)
 <br>Pasi pentru instalare:
    <br> - Descarcati arhiva cu jocul ;
    <br> - Deschideti Eclipse IDE;
