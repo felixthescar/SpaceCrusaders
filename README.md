@@ -1,10 +1,10 @@
 # APD-Project
 
 # Table of Contents
-    *[Introducere] (#1)
-    *[Explicatia Jocului in sine] (#2)
-    *[Tutorial] (#3) 
-    *[Scor si Level] (#4)
+    * [Introducere](#1)
+    * [Explicatia Jocului in sine](#2)
+    * [Tutorial](#3) 
+    * [Scor si Level](#4)
 
 ### Introducere <a id="1"></a>
 Acest proiect a fost facut in cadrul cursului Algoritmi Paraleli si Distribuiti.
