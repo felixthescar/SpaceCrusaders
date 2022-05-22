@@ -1,10 +1,5 @@
 # APD-Project
 
-# Table of Contents
-    * [Introducere](#1)
-    * [Explicatia Jocului in sine](#2)
-    * [Tutorial](#3) 
-    * [Scor si Level](#4)
 
 ### Introducere <a id="1"></a>
 Acest proiect a fost facut in cadrul cursului Algoritmi Paraleli si Distribuiti.
@@ -26,9 +21,32 @@ Inputurile sunt in felul urmator:
     - D - pentru a misca caracterul in sus (pe directia +X in java).
 Jucatorul poate combina aceste inputuri intre ele pentru a misca caracterul pe diagonale. In schimb, daca jucatorul apasa doua taste de pozitie opusa (W + S sau A + D) caracterul se va opri pur si simplu din miscat pe directiile apasate. Daca aceste inputuri "OPUSE" vin impreuna cu unul singur pe alta axa caracterul se va misca pe axa respectiva ignorand imputurile opuse.
 Caracterul este in viata atat timp cat bara de viata (bara din stanga sus) inca exista. In momentul cand aceasta ajunge la 0 jocul se termina si este prezentat "Death screen-ul" sau meniul in care caracterul inca se poate misca dar inamicii, scorul, bara de viata, nivelul si aparitia inamicilor sunt oprite. 
+Atacul caracterului se bazeaza pe 8 proiectile in fiecare directie cardinala. Cand acestea intra in contact cu inamicul, inamicul dispare. Fiecare proiectil are o penetrare de 2 inamici. In contact cu primul inamic, proiectilul incetineste iar in contact cu al doilea inamic, acesta dispare de pe harta.
+Cand proiectilul iese din harta vizibila, acesta este distrus pentru a preveni milioane de corpuri in acelasi timp.
 
 ### Scor si Level <a id="4"></a>
 Scorul creste pe un ciclu de o secunda insemnand ca pentru fiecare secunda in care caracterul este in viata acesta va creste cu 1.
 Nivelul (sau Level) creste pe un ciclu de 5 secunde iar la fiecare trecere de nivel vor aparea in functie de nivelul curent.
 EXPLICATIE: pentru nivelul 1 va aparea un singur inamic, pentru nivelul 2 vor aparea inca 2 inamici s.a.m.d.
 Nivelul creste chiar daca nu au fost omorati toti inamicii prezenti in nivel ceea ce ofera un nivel de dificultate deoarece exista posibilitatea sa fie atat de multi inamici incat player-ul nu mai are mutari in care sa nu isi scada viata.
+
+### Instalare si Executare <a id="5"></a>
+Pentru a putea juca acest joc aveti nevoie de urmatoarele:
+    - Eclipse IDE;
+    - OpenJDK sau orice alt JDK peste 15.
+Pasi pentru instalare:
+    - Descarcati arhiva cu jocul ;
+    - Deschideti Eclipse IDE;
+    - Importati proiectul (File->Open project from FileSystem...->Archive->APD-Project-main.zip);
+    - De aici puteti da in executie jocul sau puteti creea un .jar executabil.
+Pasi pentru creearea unui .jar (necesita pasii de mai sus):
+    - File->Export->Java->Runnable JAR file->Next;
+    - In Launch configuration selectati Game - APD-Project-main;
+    - In export destination selectati directorul unde doriti sa aveti Jocul.jar;
+    - Finish.
+
+### Gameplay - YouTube
+https://youtu.be/WHjCcjkyuWE
+
+### Mentiuni
+Nota 10? :3
