@@ -20,7 +20,6 @@ public class Window extends Canvas{
 		frame.add(game);
 		frame.setVisible(true);
 		game.start();
-		//game.start();
 	}
 
 	public void changeTitle(String title) {
@@ -28,3 +27,4 @@ public class Window extends Canvas{
 	}
 	
 }
+//final version

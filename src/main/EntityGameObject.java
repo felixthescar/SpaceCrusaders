@@ -15,8 +15,11 @@ public class EntityGameObject extends GameObject{
 
     public void handleVelocity(){
         x += velocity.getX();
-		y += velocity.getY();
-		if((x < 0 || x > Game.WIDTH) || (y < 0 || y > Game.HEIGHT)) Handler.getHandler().removeObject(this);
+        y += velocity.getY();
+        
+        x = Game.clamp(x, 0, Game.WIDTH-50);
+        y = Game.clamp(y, 0, Game.HEIGHT-73);
+        
     }
 
     @Override
@@ -48,3 +51,4 @@ public class EntityGameObject extends GameObject{
     }
 
 }
+//final version

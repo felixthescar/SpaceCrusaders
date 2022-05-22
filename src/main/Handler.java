@@ -26,9 +26,12 @@ public class Handler {
 	
 	public void render(Graphics g) {
 		for(int i = 0; i < object.size(); i ++) {
-			GameObject tempObject = object.get(i);
-			
-			tempObject.render(g);
+			try {
+				GameObject tempObject = object.get(i);
+				tempObject.render(g);
+			} catch(Exception e) {
+
+			}
 		}
 	}
 	
@@ -38,6 +41,29 @@ public class Handler {
 	
 	public void removeObject(GameObject object) {
 		Handler.getHandler().object.remove(object);
-		System.out.println("sters");
+	}
+
+	public void clearEnemys() {
+		for(int i  = 0; i < object.size(); i ++) {
+			GameObject temp = object.get(i);
+
+			if(temp.getId() == ID.Player) {
+				object.clear();
+				if(Game.gameState != Game.STATE.End) {
+					addObject(new Player((int)temp.getX(), (int)temp.getY(), ID.Player));
+				}
+			}
+		}
+	}
+
+	public void clearPlayer() {
+		for(int i  = 0; i < object.size(); i ++) {
+			GameObject temp = object.get(i);
+
+			if(temp.getId() == ID.Player) {
+				removeObject(temp);
+			}
+		}
 	}
 }
+//final version

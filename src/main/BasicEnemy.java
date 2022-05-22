@@ -22,28 +22,16 @@ public class BasicEnemy extends EntityGameObject{
 	public void tick() {
 		super.tick();
 		if(alive) {
-			/*x += velX;
-			y += velY;
-			diffX = x - player.getX() -8;
-			diffY = y - player.getY() -8;
-			distance = (float) Math.sqrt((x - player.getX())*(x - player.getX()) + (y - player.getY()) * (y - player.getY()));
-			
-			velX = (float) (-1.0/distance * diffX);
-			velY = (float) (-1.0/distance * diffY);*/
 			dir = new Vector2<Float>(0f, 0f);
-			float distance = (float) Math.sqrt((x + player.getX())*(x + player.getX()) + (y + player.getY()) * (y + player.getY()));
 			float x = player.getX() - this.x;
 			float y = player.getY() - this.y;
-			//float u = (float) Math.pow(x/(x*x + y*y), (1/2));
-			//float v = (float) Math.pow(y/(x*x + y*y), (1/2));
-			Vector2<Float> vel = new Vector2<Float>(x / 1000 * speed, y / 1000 * speed);
+			Vector2<Float> vel = new Vector2<Float>(x / 2000 * speed, y / 2000 * speed);
 			super.setVelocity(vel);
 		} else {
 			Handler.getHandler().removeObject(this);
 		}
 		
 		collision();
-		
 	}
 	
 	private void collision() {
@@ -76,5 +64,5 @@ public class BasicEnemy extends EntityGameObject{
 			return new Rectangle(-100, -100, 16, 16);
 		}
 	}
-
 }
+//final version

@@ -21,14 +21,14 @@ public class Game extends Canvas implements Runnable{
 
 	public static double fps = 0;
 	
-	public enum STATE {
+	public static enum STATE {
 		Menu,
 		Help,
 		Game,
 		End
 	}
 	
-	public STATE gameState = STATE.Menu;
+	public static STATE gameState = STATE.Menu;
 	
 	public Game() {
 		hud = new HUD();
@@ -88,7 +88,7 @@ public class Game extends Canvas implements Runnable{
 				
 				if(gameState == STATE.Game) {
 					hud.render(g);
-				} else if(gameState == STATE.Menu) {
+				} else if(gameState == STATE.Menu || gameState == STATE.End || gameState == STATE.Help) {
 					menu.render(g);
 				}
 				
@@ -100,7 +100,6 @@ public class Game extends Canvas implements Runnable{
 		});
 		
 		System.out.println(t.getName());
-		//
 		boolean renderStarted = false;
 		while(running) {
 			long now = System.nanoTime();
@@ -135,9 +134,12 @@ public class Game extends Canvas implements Runnable{
 			hud.tick();
 			spawner.tick();if(HUD.HEALTH <= 0) {
 				HUD.HEALTH = 100;
+				Handler.getHandler().clearEnemys();
 				gameState = STATE.End;
+				Handler.getHandler().clearPlayer();
 			}
-		} else if(gameState == STATE.Menu || gameState == STATE.End) {
+		} 
+		if(gameState == STATE.Menu || gameState == STATE.End) {
 			menu.tick();
 		}
 		
@@ -153,3 +155,4 @@ public class Game extends Canvas implements Runnable{
 		new Game();
 	}
 }
+//final version

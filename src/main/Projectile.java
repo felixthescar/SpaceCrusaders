@@ -11,8 +11,9 @@ public class Projectile extends EntityGameObject{
 	public Projectile(float x, float y, ID id, int dir) {
 		super(x, y, id);
 		Vector2<Float> vel = new Vector2<Float>(0f, 0f);
+		
 		switch(dir) {
-			case 1: {vel.setX(-speed); vel.setY(-speed);break;} //stanga sus  +
+			case 1: {vel.setX(-speed); vel.setY(-speed);break;} //stanga sus 
 			case 2: {vel.setX(0f); vel.setY(-speed);break;} //sus			
 			case 3: {vel.setX(speed);vel.setY(-speed);break;} //dreapta sus
 			case 4: {vel.setX(speed); vel.setY(0f);break;} //dreapta
@@ -27,6 +28,12 @@ public class Projectile extends EntityGameObject{
 	@Override
 	public void tick() {
 		super.tick();
+
+		x = Game.clamp(x, 0, Game.WIDTH-50);
+        y = Game.clamp(y, 0, Game.HEIGHT-73);
+		if((x == 0 || x == Game.WIDTH-50) || (y == 0 || y == Game.HEIGHT-73)) {
+            Handler.getHandler().removeObject(this);
+        }
 	}
 
 	@Override
@@ -41,3 +48,4 @@ public class Projectile extends EntityGameObject{
 		return new Rectangle((int)x, (int)y, 8, 8);
 	}
 }
+//final version
