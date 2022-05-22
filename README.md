@@ -48,6 +48,9 @@ Inputurile sunt in felul urmator:
 ### Detalii Tehnice
 <br>Jocul a fost creat folosind limbajul de programare Java. Cu ajutorul librariei Swing am reusit sa desenez pe ecran elementele necesare acestuia.
 <br>IDE-urile folosite au fost Eclipse pentru creearea si buna functionare a proiectului si VisualStudio Code pentru usurarea scrierii codului datorita multelor functionalitati unice ale sale.
+<br>Impartirea acestuia in doua Thread-uri:
+    <br>- Ciclul jocului este pe Thread-ul sau (Toata logica din spatele lui, creearea de inamici, proiectile, jucator, "AI-ul" inamicilor, tinerea scorului, etc);
+    <br>- Randarea tuturor elementelor pe ecran.
 
 
 ### Gameplay - YouTube
